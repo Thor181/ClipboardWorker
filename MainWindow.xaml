@@ -13,6 +13,7 @@
     <Window.Resources>
         <service:InverseBooleanConverter x:Key="InverseBooleanConverter"></service:InverseBooleanConverter>
     </Window.Resources>
+    <!--asd-->
     <Grid ClipToBounds="True">
         <Border CornerRadius="8" Background="White" Margin="5" BorderThickness="2" >
             <Border.Effect>
