@@ -1,0 +1,234 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="EscapeButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            Padding="0"
+                            CornerRadius="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            SnapsToDevicePixels="True"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <ContentPresenter Margin="{TemplateBinding Margin}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"/>
+                        </Border>
+                        <Path x:Name="PathButtonClose" 
+                            Fill="Black" 
+                                  Stretch="Fill" 
+                                  Height="7" 
+                                  Width="7"  
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Data="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions >
+                                <Condition Property="IsMouseOver" Value="True"></Condition>
+                                <Condition Property="Tag" Value="EscapeButton"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="Red" />
+                            <Setter TargetName="PathButtonClose"  Property="Fill" Value="White" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions >
+                                <Condition Property="IsMouseOver" Value="True"></Condition>
+                                <Condition Property="Tag" Value="PinEscapeButton"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="Orange" />
+                            <Setter TargetName="PathButtonClose"  Property="Fill" Value="White" />
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="0.5" Y="0.5"></TranslateTransform>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="EscapePinButton" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            Padding="0"
+                            CornerRadius="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            SnapsToDevicePixels="True"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <ContentPresenter Margin="{TemplateBinding Margin}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"/>
+                        </Border>
+                        <Path Name="PinPath" 
+                              Fill="Black" Margin="2"
+                              Stretch="Fill" 
+                              FlowDirection="LeftToRight" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                              
+                            Data="F1 M512,512z M0,0z M505.014,125.61L386.393,6.989C380.634,1.22 373.596,-1.134 367.087,0.524 360.572,2.184 355.519,7.627 353.221,15.461L347.842,33.831C345.099,43.194,336.929,56.958,330.001,63.887L233.646,160.257C226.699,167.211,212.903,175.659,203.52,178.707L147.862,196.781C140.143,199.283 134.812,204.493 133.234,211.074 131.657,217.654 134.049,224.714 139.788,230.435L192.775,283.433 112.823,363.364C112.635,363.552,112.457,363.749,112.289,363.955L1.81,498.929C-0.794,502.11 -0.563,506.746 2.344,509.653 3.898,511.207 5.947,511.996 8.003,511.996 9.793,511.996 11.588,511.398 13.068,510.187L148.057,399.7C148.263,399.532,148.459,399.354,148.647,399.166L228.574,319.239 281.556,372.232C286.119,376.804 291.533,379.246 296.878,379.246 298.228,379.246 299.574,379.09 300.9,378.773 307.49,377.2 312.715,371.873 315.241,364.14L333.283,308.477C336.325,299.118,344.774,285.32,351.728,278.353L448.102,181.987C455.011,175.085,468.78,166.928,478.17,164.174L496.541,158.786C504.376,156.487 509.823,151.429 511.483,144.907 513.139,138.394 510.779,131.357 505.014,125.61z M137.615,387.57L64.957,447.039 124.416,374.396 204.086,294.747 217.261,307.925 137.615,387.57z M495.976,140.962C495.83,141.534,494.661,142.665,492.036,143.435L473.666,148.823C467.941,150.502,461.228,153.598,454.823,157.327L446.515,149.02C443.391,145.896 438.326,145.896 435.202,149.021 432.078,152.145 432.078,157.21 435.203,160.334L441.408,166.538C439.723,167.919,438.158,169.305,436.79,170.671L340.408,267.045C339.501,267.954,338.581,268.957,337.659,270.011L331.591,263.944C328.467,260.82 323.402,260.82 320.278,263.945 317.154,267.069 317.154,272.134 320.279,275.258L328.088,283.066C323.771,289.952,320.077,297.341,318.063,303.537L300.025,359.188C299.207,361.692 298.008,363.012 297.184,363.209 296.371,363.405 294.724,362.774 292.875,360.923L234.412,302.448C234.353,302.385 234.301,302.319 234.24,302.258 234.179,302.197 234.113,302.145 234.051,302.087L151.093,219.111C149.235,217.258 148.599,215.611 148.793,214.8 148.988,213.988 150.301,212.806 152.799,211.996L208.461,193.921C214.662,191.907,222.046,188.218,228.924,183.908L297.808,252.786C299.371,254.348 301.417,255.129 303.465,255.129 305.513,255.129 307.56,254.348 309.122,252.786 312.246,249.661 312.246,244.596 309.122,241.472L241.98,174.336C243.041,173.406,244.05,172.479,244.963,171.565L341.315,75.197C342.682,73.83,344.069,72.267,345.45,70.585L412.733,137.862C414.296,139.424 416.342,140.205 418.39,140.205 420.438,140.205 422.485,139.424 424.047,137.862 427.171,134.737 427.171,129.672 424.047,126.548L354.675,57.182C358.417,50.769,361.522,44.05,363.198,38.326L368.577,19.959C369.346,17.339 370.471,16.172 371.04,16.027 371.101,16.011 371.173,16.003 371.256,16.003 371.944,16.003 373.358,16.574 375.075,18.296 375.077,18.298 375.079,18.299 375.081,18.301L493.71,136.931C495.636,138.853,496.12,140.395,495.976,140.962z">
+
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="0.5" Y="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PinPath"  Property="Stroke" Value="Black" />
+                            <Setter Property="Background" Value="DarkOrange" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="PinButton" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            Padding="0"
+                            CornerRadius="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            SnapsToDevicePixels="True"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <ContentPresenter Margin="{TemplateBinding Margin}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"/>
+                        </Border>
+                        <Path Name="PinPath" 
+                              Fill="Black" Margin="2"
+                              Stretch="Fill" 
+                              FlowDirection="LeftToRight" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                              
+                            Data="F1 M512,512z M0,0z M505.014,125.61L386.393,6.989C380.634,1.22 373.596,-1.134 367.087,0.524 360.572,2.184 355.519,7.627 353.221,15.461L347.842,33.831C345.099,43.194,336.929,56.958,330.001,63.887L233.646,160.257C226.699,167.211,212.903,175.659,203.52,178.707L147.862,196.781C140.143,199.283 134.812,204.493 133.234,211.074 131.657,217.654 134.049,224.714 139.788,230.435L192.775,283.433 112.823,363.364C112.635,363.552,112.457,363.749,112.289,363.955L1.81,498.929C-0.794,502.11 -0.563,506.746 2.344,509.653 3.898,511.207 5.947,511.996 8.003,511.996 9.793,511.996 11.588,511.398 13.068,510.187L148.057,399.7C148.263,399.532,148.459,399.354,148.647,399.166L228.574,319.239 281.556,372.232C286.119,376.804 291.533,379.246 296.878,379.246 298.228,379.246 299.574,379.09 300.9,378.773 307.49,377.2 312.715,371.873 315.241,364.14L333.283,308.477C336.325,299.118,344.774,285.32,351.728,278.353L448.102,181.987C455.011,175.085,468.78,166.928,478.17,164.174L496.541,158.786C504.376,156.487 509.823,151.429 511.483,144.907 513.139,138.394 510.779,131.357 505.014,125.61z M137.615,387.57L64.957,447.039 124.416,374.396 204.086,294.747 217.261,307.925 137.615,387.57z M495.976,140.962C495.83,141.534,494.661,142.665,492.036,143.435L473.666,148.823C467.941,150.502,461.228,153.598,454.823,157.327L446.515,149.02C443.391,145.896 438.326,145.896 435.202,149.021 432.078,152.145 432.078,157.21 435.203,160.334L441.408,166.538C439.723,167.919,438.158,169.305,436.79,170.671L340.408,267.045C339.501,267.954,338.581,268.957,337.659,270.011L331.591,263.944C328.467,260.82 323.402,260.82 320.278,263.945 317.154,267.069 317.154,272.134 320.279,275.258L328.088,283.066C323.771,289.952,320.077,297.341,318.063,303.537L300.025,359.188C299.207,361.692 298.008,363.012 297.184,363.209 296.371,363.405 294.724,362.774 292.875,360.923L234.412,302.448C234.353,302.385 234.301,302.319 234.24,302.258 234.179,302.197 234.113,302.145 234.051,302.087L151.093,219.111C149.235,217.258 148.599,215.611 148.793,214.8 148.988,213.988 150.301,212.806 152.799,211.996L208.461,193.921C214.662,191.907,222.046,188.218,228.924,183.908L297.808,252.786C299.371,254.348 301.417,255.129 303.465,255.129 305.513,255.129 307.56,254.348 309.122,252.786 312.246,249.661 312.246,244.596 309.122,241.472L241.98,174.336C243.041,173.406,244.05,172.479,244.963,171.565L341.315,75.197C342.682,73.83,344.069,72.267,345.45,70.585L412.733,137.862C414.296,139.424 416.342,140.205 418.39,140.205 420.438,140.205 422.485,139.424 424.047,137.862 427.171,134.737 427.171,129.672 424.047,126.548L354.675,57.182C358.417,50.769,361.522,44.05,363.198,38.326L368.577,19.959C369.346,17.339 370.471,16.172 371.04,16.027 371.101,16.011 371.173,16.003 371.256,16.003 371.944,16.003 373.358,16.574 375.075,18.296 375.077,18.298 375.079,18.299 375.081,18.301L493.71,136.931C495.636,138.853,496.12,140.395,495.976,140.962z">
+                            
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Orange" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="0.5" Y="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PinPath"  Property="Stroke" Value="Black" />
+                            <Setter Property="Background" Value="DarkOrange" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            SnapsToDevicePixels="True"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="2"/>
+                        </Border.Effect>
+                        <ContentPresenter Margin="{TemplateBinding Margin}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"></Condition>
+                                <Condition Property="Tag" Value="TrashButton"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="#ff4133"></Setter>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="Gray" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"></Condition>
+                                <Condition Property="Tag" Value="PinButton"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="Orange"></Setter>
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="0.5" Y="0.5"></TranslateTransform>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
