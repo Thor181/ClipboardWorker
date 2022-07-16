@@ -12,9 +12,9 @@
         AllowsTransparency="True" WindowStyle="None" Background="Transparent" 
         MouseDown="MainWindowS_MouseDown" Topmost="{Binding ElementName=PinTopMostCheckBox, Path=IsChecked}">
     <Window.Resources>
-        <service:InverseBooleanConverter x:Key="InverseBooleanConverter"></service:InverseBooleanConverter>
+        <service:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Window.Resources>
-    
+
     <Grid ClipToBounds="True">
         <Border CornerRadius="8" Background="White" Margin="5" BorderThickness="2" >
             <Border.Effect>
@@ -30,7 +30,18 @@
                               Tag="PinEscapeButton"/>
                     <Button Width="15" Height="15" Style="{StaticResource EscapeButtonStyle}" Tag="EscapeButton" Command="{Binding RemoveItemCommand}"/>
                 </StackPanel>
-
+                <Popup x:Name="PopupClipboard" Width="130" Height="40"
+                       AllowsTransparency="True" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                       Placement="Center" VerticalOffset="160"
+                       PopupAnimation="Fade" 
+                       StaysOpen="False" d:IsOpen="True">
+                    <Border Background="LightGray" CornerRadius="5" Opacity="0.7" >
+                        <TextBlock Text="Скопировано в буфер" 
+                                   TextWrapping="Wrap" FontWeight="Bold"
+                                   Width="85" 
+                                   TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </Popup>
                 <ListView x:Name="MainListView" d:ItemsSource="{d:SampleData ItemCount=5}" 
                           ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
                           Margin="5 23 5 5" BorderThickness="0" >
@@ -64,15 +75,9 @@
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    
+
                 </ListView>
-                <Popup x:Name="PopupClipboard" Width="30" Height="30" 
-                       AllowsTransparency="True" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                       Placement="Bottom" 
-                       PopupAnimation="Fade" 
-                       StaysOpen="True" IsOpen="{Binding ElementName=MainListView, Path=SelectedItem}" >
-                    <TextBlock Text="Скопировано в буфер" Height="30" Width="50"></TextBlock>
-                </Popup>
+
             </Grid>
 
         </Border>

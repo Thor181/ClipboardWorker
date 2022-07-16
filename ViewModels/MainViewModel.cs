@@ -16,11 +16,11 @@ namespace ClipboardWorker.ViewModels
 {
     internal class MainViewModel
     {
-        private MainWindow _mainWindow;
+        private MainWindow _mainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
-        public ObservableCollection<ItemModel> Items { get; set; }
+        public ObservableCollection<ItemModel> Items { get; set; } = new ObservableCollection<ItemModel>();
+
         private ItemModel _selectedItem = null!;
-
         public ItemModel SelectedItem
         {
             get { return _selectedItem; }
@@ -36,20 +36,15 @@ namespace ClipboardWorker.ViewModels
 
         private void OnPropertyChanged(ItemModel value, [CallerMemberName] string propName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName), value);
-            }
+            if (PropertyChanged == null) return;
+            PropertyChanged(this, new PropertyChangedEventArgs(propName), value);
         }
+
         private Command _removeItemCommand;
         public Command RemoveItemCommand
         {
             get
             {
-                if (_removeItemCommand == null)
-                {
-                    _removeItemCommand = new Command((SelectedItem) => { Items.Remove((ItemModel)SelectedItem); });
-                }
                 return _removeItemCommand;
             }
             private set
@@ -62,20 +57,26 @@ namespace ClipboardWorker.ViewModels
         {
             if (itemModel == null) return;
             Clipboard.SetText(itemModel.Text);
-
+            TogglePopup();
         }
 
         public MainViewModel()
         {
-            Items = new ObservableCollection<ItemModel>();
-            _mainWindow = (MainWindow)System.Windows.Application.Current.MainWindow;
             PropertyChanged += MainViewModel_SetupClipboard;
-            
+            _removeItemCommand = new Command((SelectedItem) =>
+            {
+                Items.Remove((ItemModel)SelectedItem);
+            });
             UpdateClipboard();
+        }
+        private async Task TogglePopup()
+        {
+            _mainWindow.PopupClipboard.IsOpen = true;
+            await Task.Delay(2000);
+            _mainWindow.PopupClipboard.IsOpen = false;
         }
         private void UpdateClipboard()
         {
-            
             Thread thread = new Thread(() =>
             {
                 while (true)
@@ -93,8 +94,6 @@ namespace ClipboardWorker.ViewModels
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-
-
         }
 
     }
