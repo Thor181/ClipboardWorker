@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClipboardWorker"
         xmlns:service="clr-namespace:ClipboardWorker.Service"
+        xmlns:viewModel="clr-namespace:ClipboardWorker.ViewModels"
         mc:Ignorable="d"
         Title="Clipboard worker" Height="377" Width="421"  
         x:Name="MainWindowS" 
@@ -13,6 +14,7 @@
     <Window.Resources>
         <service:InverseBooleanConverter x:Key="InverseBooleanConverter"></service:InverseBooleanConverter>
     </Window.Resources>
+    
     <Grid ClipToBounds="True">
         <Border CornerRadius="8" Background="White" Margin="5" BorderThickness="2" >
             <Border.Effect>
@@ -26,7 +28,7 @@
                               Width="15" Height="15" Margin="0 0 3 0" 
                               Style="{StaticResource EscapePinButton}" 
                               Tag="PinEscapeButton"/>
-                    <Button Width="15" Height="15" Style="{StaticResource EscapeButtonStyle}" Tag="EscapeButton"/>
+                    <Button Width="15" Height="15" Style="{StaticResource EscapeButtonStyle}" Tag="EscapeButton" Command="{Binding RemoveItemCommand}"/>
                 </StackPanel>
 
                 <ListView x:Name="MainListView" d:ItemsSource="{d:SampleData ItemCount=5}" 
@@ -42,16 +44,15 @@
                                         Background="LightGray" 
                                         CornerRadius="3" Padding="5"
                                         Width="{Binding ElementName=ParentStackPanel, Path=Width}">
-
                                     <TextBlock Width="289" 
                                                Text="{Binding Path=Text}" d:Text="TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT " 
                                                TextTrimming="CharacterEllipsis"
                                                HorizontalAlignment="Stretch"
                                                VerticalAlignment="Center" />
                                 </Border>
-
                                 <CheckBox x:Name="IsPinnedCheckBox" Style="{StaticResource PinButton}" Width="29" Height="25" Margin="2" Tag="PinButton"/>
-                                <Button Style="{StaticResource ButtonStyle}" Command="{Binding RemoveItemCommand}" 
+                                <Button x:Name="TrashButton" Style="{StaticResource ButtonStyle}" 
+                                        Command="{Binding ElementName=MainWindowS, Path=DataContext.RemoveItemCommand}" CommandParameter="{Binding ElementName=TrashButton, Path=DataContext}"
                                         IsEnabled="{Binding ElementName=IsPinnedCheckBox, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"                               
                                         Width="29" Height="25" Margin="2" 
                                         Tag="TrashButton">
@@ -60,13 +61,18 @@
                                               Data="F1 M24,24z M0,0z M3,6L3,24 21,24 21,6 3,6z M8,20C8,20.552 7.552,21 7,21 6.448,21 6,20.552 6,20L6,10C6,9.448 6.448,9 7,9 7.552,9 8,9.448 8,10L8,20z M13,20C13,20.552 12.552,21 12,21 11.448,21 11,20.552 11,20L11,10C11,9.448 11.448,9 12,9 12.552,9 13,9.448 13,10L13,20z M18,20C18,20.552 17.552,21 17,21 16.448,21 16,20.552 16,20L16,10C16,9.448 16.448,9 17,9 17.552,9 18,9.448 18,10L18,20z M22,2L22,4 2,4 2,2 7.711,2C8.611,2,9.342,0.901,9.342,0L14.657,0C14.657,0.901,15.387,2,16.288,2L22,2z"></Path>
                                     </Button.Content>
                                 </Button>
-
-
                             </StackPanel>
-
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    
                 </ListView>
+                <Popup x:Name="PopupClipboard" Width="30" Height="30" 
+                       AllowsTransparency="True" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                       Placement="Bottom" 
+                       PopupAnimation="Fade" 
+                       StaysOpen="True" IsOpen="{Binding ElementName=MainListView, Path=SelectedItem}" >
+                    <TextBlock Text="Скопировано в буфер" Height="30" Width="50"></TextBlock>
+                </Popup>
             </Grid>
 
         </Border>
