@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClipboardWorker"
         xmlns:service="clr-namespace:ClipboardWorker.Service"
         mc:Ignorable="d"
-        Title="Clipboard worker" Height="377" Width="421"
+        Title="Clipboard worker" Height="377" Width="421" 
         x:Name="MainWindowS" 
         AllowsTransparency="True" WindowStyle="None" Background="Transparent" 
         MouseDown="MainWindowS_MouseDown" Topmost="{Binding ElementName=PinTopMostCheckBox, Path=IsChecked}">
